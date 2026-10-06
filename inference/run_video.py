@@ -3,6 +3,8 @@ import time
 
 import cv2
 
+from utils.smoothing import TemporalFilter
+
 from inference.detector import SunglassDetector
 from utils.config import DEFAULT_CONF, DEFAULT_IMGSZ, MODEL_PATH
 from utils.draw import draw_detections, draw_fps
@@ -34,8 +36,10 @@ def main():
         h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fps_in = cap.get(cv2.CAP_PROP_FPS) or 30
         writer = cv2.VideoWriter(args.output, cv2.VideoWriter_fourcc(*"mp4v"),
-                                 fps_in, (w, h))
-
+                                fps_in, (w, h))
+    
+    
+    tracker = TemporalFilter()
     prev = time.perf_counter()
     try:
         while True:
@@ -43,7 +47,7 @@ def main():
             if not ok:
                 break
 
-            detections = detector.predict(frame)
+            detections = tracker.update(detector.predict(frame))
             frame = draw_detections(frame, detections)
 
             now = time.perf_counter()
