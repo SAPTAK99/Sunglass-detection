@@ -39,7 +39,7 @@ def main():
                                 fps_in, (w, h))
     
     
-    tracker = TemporalFilter()
+    tracker = TemporalFilter(max_misses=3)
     prev = time.perf_counter()
     try:
         while True:
