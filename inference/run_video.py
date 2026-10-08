@@ -49,7 +49,7 @@ def main():
                                     fps_in, (w, h))
         print("Saving to:", output)
 
-        tracker = TemporalFilter(start_conf=0.35, max_misses=3)
+        tracker = TemporalFilter(start_conf=0.25, min_hits=2, max_misses=8)
 
     prev = time.perf_counter()
     try:
