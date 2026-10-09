@@ -18,7 +18,7 @@ def parse_args():
     p.add_argument("--imgsz", type=int, default=DEFAULT_IMGSZ)
     p.add_argument("--output", default=None, help="output video path (overwrites if it exists)")
     p.add_argument("--save", action="store_true",
-                   help="auto-name the output: data/results/<video>_<model>_conf<value>.mp4")
+                help="auto-name the output: data/results/<video>_<model>_conf<value>.mp4")
     p.add_argument("--no-display", action="store_true", help="run without a window")
     return p.parse_args()
 
